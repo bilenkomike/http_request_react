@@ -46,6 +46,22 @@ async function fetchMovieHandler() {
   // });
 }
 
+let content = <p>No moviews</p>;
+
+if (movies.length > 0) 
+{
+  content =  <MoviesList movies={movies} />;
+}
+
+
+if (error) {
+  return <p>{error}</p>;
+}
+
+if (isLoading) {
+  content = <p>Loading ...</p>;
+}
+
 
   return (
     <React.Fragment>
@@ -53,10 +69,7 @@ async function fetchMovieHandler() {
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section>
-        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
-        {!isLoading && movies.length === 0 && <p>Found no movies</p>}
-        {isLoading && <p>Loading...</p>}
-        {!isLoading && error && <p>{error}</p>}
+        {content}
       </section>
     </React.Fragment>
   );
